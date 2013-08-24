@@ -1,0 +1,61 @@
+/*body{
+	font-family: 'Open Sans', Helvetica, serif ;
+}*/
+.tableheader{
+	color:white;
+	float: left;
+	background-color: #2A4480;
+	border-left: 1px solid #06266F;
+	width:15%;
+	text-align: center;
+	height: 1.75em;
+}
+#table{
+	margin:0;
+
+}
+#sidenav{
+	background-color:orange;
+}
+.first{
+	border-left:none;
+}
+.odd{
+	background-color: #4965D6;
+}
+.even{
+	background-color: #6C8CD5;
+}
+/*.end{
+	width:10%;
+	text-align:center;
+	position: relative;
+	clear:both;
+}*/
+.tablestart{
+	color:white;
+	float:left;
+	width:15%;
+	text-align:center;
+	background-color:#4671D5;
+	height:1.75em;
+	border-bottom: 1px solid #06266F;
+/*	border-right:1px solid white;*/
+}
+.tablecol{
+	color:white;
+	float:left;
+	width:15%;
+	height:1.75em;
+	text-align:center;
+	border-left: 1px solid #06266F;
+	border-bottom: 1px solid #06266F;
+	background-color:inherit;
+/*	position: relative;*/
+}
+.tablerow{
+clear:both;
+}
+.restrict{
+	background-color:gray;
+}

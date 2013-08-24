@@ -1,0 +1,39 @@
+<ul class="breadcrumb">
+    <li><a href="/">Home</a> <span class="divider">/</span></li>
+    <li><a href="<%- pathTo.schedules %>">schedules</a> <span class="divider">/</span></li>
+    <li class="active"><a href="#">Details of schedule</a></li>
+</ul>
+
+<div class="page-header">
+    <h1>Details of schedule</h1>
+</div>
+
+<table class="table table-bordered">
+    <tbody>
+        <tr><th>uid</th><td><%= schedule.uid %></td></tr>
+
+        <tr><th>offerings</th><td><%= schedule.offerings %></td></tr>
+    </tbody>
+</table>
+
+    <div class="container">
+     <div class="row">
+      <div class="span3" id="sidenav">
+       YASODFASDF
+     </div>
+     <div class="span9" id="tables" >
+     </div>
+   </div>
+ </div>
+ <script type="text/javascript">
+ $(drawTable($("#tables")[0]));
+ $(coverElement($("div.tablestart:contains('07:00')")[0], $("div.tablestart:contains('07:30')")[0]));
+ assignDocListeners();
+ </script>
+
+<div class="well">
+    <%- link_to('<i class="icon-edit icon-white"></i> Edit', pathTo.edit_schedule(schedule), {class: 'btn btn-primary'}) %>
+    <%- link_to('<i class="icon-remove icon-white"></i> Delete', pathTo.schedule(schedule), {class: 'btn btn-danger', method: 'delete', remote: true, jsonp: '(function (u) { location.href = u; })'}) %>
+    or
+    <%- link_to('Back to index', pathTo.schedules) %>
+</div>

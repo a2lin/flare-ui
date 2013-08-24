@@ -1,0 +1,18 @@
+<ul class="breadcrumb">
+    <li><a href="/">Home</a> <span class="divider">/</span></li>
+    <li><a href="<%- pathTo.schedules() %>">schedules</a> <span class="divider">/</span></li>
+    <li class="active"><a href="#">Edit schedule</a></li>
+</ul>
+
+<div class="page-header">
+    <h1>Edit schedule</h1>
+</div>
+
+<% var form = formFor(schedule, {action: pathTo.schedule(schedule), method: 'PUT', id: "schedule-form", class: 'form-horizontal'}) %>
+<%- form.begin() %>
+<%- include _form %>
+<div class="form-actions">
+    <%- form.submit('<i class="icon-ok icon-white"></i> Update schedule', {class: 'btn btn-primary'}) %> or
+    <%- linkTo('Cancel', pathTo.schedule(schedule), {class: 'btn'}) %>
+</div>
+<%- form.end() %>

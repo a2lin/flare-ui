@@ -1,0 +1,44 @@
+<ul class="breadcrumb">
+    <li><a href="/">Home</a> <span class="divider">/</span></li>
+    <li class="active"><a href="<%- pathTo.schedules() %>">schedules</a> <span class="divider">/</span></li>
+</ul>
+
+<div class="page-header">
+    <h1>Index of schedule</h1>
+</div>
+
+<div class="row">
+    <div class="span12">
+        <p><%- link_to('<i class="icon-plus icon-white"></i> New schedule', pathTo.new_schedule(), {class: 'btn btn-primary'}) %></>
+    </div>
+</div>
+
+<div class="row">
+    <div class="span12">
+        <% if (schedules.length > 0) { %>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% schedules.forEach(function (schedule) { %>
+                <tr>
+                    <td><strong><%- link_to('schedule #' + schedule.id, pathTo.schedule(schedule)) %></strong></td>
+                    <td>
+                        <%- link_to('<i class="icon-edit"></i> Edit', pathTo.edit_schedule(schedule), {class: 'btn btn-mini'}) %>
+                        <%- link_to('<i class="icon-remove icon-white"></i> Delete', pathTo.schedule(schedule), {class: 'btn btn-mini btn-danger', method: 'delete', remote: true, jsonp: '(function (u) {location.href = u;})'}) %>
+                    </td>
+                </tr>
+                <% }); %>
+            </tbody>
+        </table>
+        <% } else { %>
+        <p class="alert alert-block alert-info">
+            <strong>No schedules were found.</strong>
+        </p>
+        <% } %>
+    </div>
+</div>
