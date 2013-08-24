@@ -9,6 +9,6 @@ module.exports = {
     },
     production: {
         driver:   'mongodb',
-        url:      'mongodb://localhost/schedule-production'
+        url:      process.env.MONGOHQ_URL
     }
 };
