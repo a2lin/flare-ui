@@ -2,7 +2,6 @@ module.exports = function (compound) {
   var defaultModules = [
       'jugglingdb',
       'co-assets-compiler'
-      'co-generators'
     ], developmentModules = [];
 
   if ('development' === compound.app.get('env')) {
