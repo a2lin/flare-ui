@@ -12,6 +12,7 @@
   , "stylus": "latest"
   , "seedjs": "latest"
   , "co-assets-compiler": "*"
+  , "co-generators": "*"
   },
   "devDependencies":
   { "nodeunit": "*"
