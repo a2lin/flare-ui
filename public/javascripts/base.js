@@ -18,7 +18,7 @@
 
 function doQuery(queryString)
 {
-  $.post('http://localhost:3000/query', 'query='+queryString, 
+  $.post('/query', 'query='+queryString, 
     function(data){
       console.log(data);
       $('.results').append(data);
