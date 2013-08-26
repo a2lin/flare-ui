@@ -2,7 +2,7 @@ load('application');
 
 before(loadSchedule, {
     only: ['show', 'edit', 'update', 'destroy']
-    });
+});
 
 action('new', function () {
     this.title = 'New schedule';
@@ -41,26 +41,25 @@ action(function index() {
     Schedule.all(function (err, schedules) {
         switch (params.format) {
             case "json":
-                send({code: 200, data: schedules});
-                break;
+            send({code: 200, data: schedules});
+            break;
             default:
-                render({
-                    schedules: schedules
-                });
+            render({
+                schedules: schedules
+            });
         }
     });
 });
 
 action(function show(c) {
-
     this.title = 'Schedule show';
     switch(params.format) {
         case "json":
-            send({code: 200, data: this.schedule});
-            break;
+        send({code: 200, data: this.schedule});
+        break;
         default:
-            c.layout('schedules_show');
-            render();
+        c.layout('schedules_show');
+        render();
     }
 });
 
@@ -68,10 +67,10 @@ action(function edit() {
     this.title = 'Schedule edit';
     switch(params.format) {
         case "json":
-            send(this.schedule);
-            break;
+        send(this.schedule);
+        break;
         default:
-            render();
+        render();
     }
 });
 
@@ -120,6 +119,31 @@ action(function destroy() {
             });
         });
     });
+});
+
+action('searchSOLR', function(){
+    var toSearch = req.body;
+    var counter = 0;
+    var http = require('http');
+    var options = {
+        host: 'ec2-54-213-31-81.us-west-2.compute.amazonaws.com',
+        path: '/solr/collection1/select?q=' +  toSearch.query +'&wt=json',
+        port: '8983',
+        method: 'GET'
+    }
+    callback = function(response){
+        var str = '';
+
+        response.on('data', function(chunk) {
+            str+= chunk;
+        });
+
+        response.on('end', function(){
+            console.log(str);
+            send(str);
+        });
+    }
+    http.request(options, callback).end();
 });
 
 function loadSchedule() {

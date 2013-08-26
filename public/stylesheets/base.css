@@ -15,7 +15,7 @@
 
 }
 #sidenav{
-	background-color:orange;
+/*	background-color:orange;*/
 }
 .first{
 	border-left:none;
@@ -25,6 +25,9 @@
 }
 .even{
 	background-color: #6C8CD5;
+}
+.results{
+	word-wrap: break-word;
 }
 /*.end{
 	width:10%;

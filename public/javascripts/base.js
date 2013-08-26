@@ -14,8 +14,18 @@
     'webkitUserSelect': none,
     'userSelect': none
   });
+  };
 
-};
+function doQuery(queryString)
+{
+  $.post('http://localhost:3000/query', 'query='+queryString, 
+    function(data){
+      console.log(data);
+      $('.results').append(data);
+      // return false;
+    });
+  return false;
+}
 
 function drawTable(root)
 {
@@ -39,7 +49,7 @@ function drawTable(root)
         tablestarter.appendChild(tablecorner);
         // $("body").append("<div class='tableheader'>"+dateArr[x]+ "</div>");
       }
-      var timeArr = ["07:00", "07:30", "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "1:00", "1:30", "2:00", "2:30", "3:00", "3:30", "4:00", "4:30", "5:00", "5:30", "6:00", "6:30", "7:00", "7:30", "8:00", "8:30", "9:00", "9:30", "10:00", "10:30"];
+      var timeArr = ["07:00", "07:30", "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "01:00", "01:30", "02:00", "02:30", "03:00", "03:30", "04:00", "04:30", "05:00", "05:30", "06:00", "06:30", "07:00", "07:30", "08:00", "08:30", "09:00", "09:30", "10:00", "10:30"];
       var tabledata = document.createElement("div");
       root.appendChild(tabledata);
       for(var y = 0; y < timeArr.length; y++)
@@ -148,3 +158,12 @@ function drawTable(root)
         }
       }, true)
     }
+    function splitClassString(time)
+    {
+      var stringArr = time.split(";");
+      var result = [];
+    }
+
+
+
+
