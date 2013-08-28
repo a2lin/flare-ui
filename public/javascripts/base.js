@@ -27,6 +27,15 @@ function doQuery(queryString)
   return false;
 }
 
+function startAutoComplete()
+{
+  setup = {};
+  $.get('/query/subjCodes',
+    function(data){
+      console.log(data);
+    });
+}
+
 function drawTable(root)
 {
   var dateArr = ["Times", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];

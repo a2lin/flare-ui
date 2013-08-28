@@ -18,28 +18,30 @@
 
     <div class="container">
      <div class="row">
-      <div class="span3" id="sidenav">
+      <div class="span4" id="sidenav">
        <div class="searchbar">
         <form class="navbar-form pull-left">
-            <input type="text" id="searchform"class="span2" style="margin-top:0">
-            <button type="submit" id="searchbtn" class="btn" style="margin-top:0" onclick="return doQuery('professor:ord')">Submit</button>
+            <input type="department" id="searchform" class="span2" style="margin-top:0">
+            <input type="courseno" id="searchform" class="span1" style="margin-top:0">
+            <button type="submit" id="searchbtn" class="btn" style="margin-left:0" onclick="return doQuery('professor:ord')">Submit</button>
         </form>
         <div class="results">
-
         </div>
        </div>
      </div>
-     <div class="span9" id="tables" >
+     <div class="span8" id="tables" >
      </div>
    </div>
  </div>
  <script type="text/javascript">
- $(drawTable($("#tables")[0]));
- $(coverElement($("div.tablestart:contains('07:00')")[0], $("div.tablestart:contains('07:30')")[0]));
- assignDocListeners();
+    $(startAutoComplete());
+ // $(drawTable($("#tables")[0]));
+ // $(coverElement($("div.tablestart:contains('07:00')")[0], $("div.tablestart:contains('07:30')")[0]));
+ // assignDocListeners();
+
  </script>
 
-<div class="well">
+<div class="well" style="margin-top:10px">
     <%- link_to('<i class="icon-edit icon-white"></i> Edit', pathTo.edit_schedule(schedule), {class: 'btn btn-primary'}) %>
     <%- link_to('<i class="icon-remove icon-white"></i> Delete', pathTo.schedule(schedule), {class: 'btn btn-danger', method: 'delete', remote: true, jsonp: '(function (u) { location.href = u; })'}) %>
     or

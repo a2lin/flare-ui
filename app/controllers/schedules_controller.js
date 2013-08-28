@@ -131,7 +131,30 @@ action('searchSOLR', function(){
         port: '8983',
         method: 'GET'
     }
-    callback = function(response){
+    var callback = function(response){
+        var str = '';
+
+        response.on('data', function(chunk) {
+            str+= chunk;
+        });
+
+        response.on('end', function(){
+            console.log(str);
+            send(str);
+        });
+    }
+    http.request(options, callback).end();
+});
+
+action('getSubjCodes', function(){
+    var http = require('http');
+    var options = {
+        host: 'ec2-54-213-31-81.us-west-2.compute.amazonaws.com',
+        path: '/solr/collection1/select?q=*:*&rows=0&wt=json&facet=true&facet.field=subjcode',
+        port: '8983',
+        method:'GET'
+    }
+    var callback = function(response){
         var str = '';
 
         response.on('data', function(chunk) {
