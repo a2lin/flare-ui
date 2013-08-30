@@ -16,23 +16,88 @@
   });
   };
 
-function doQuery(queryString)
+// function doQuery(queryString)
+// {
+//   $.post('/query', 'query='+queryString, 
+//     function(data){
+//       console.log(data);
+//       $('.results').append(data);
+//       // return false;
+//     });
+//   return false;
+// }
+
+function doQuery()
 {
-  $.post('/query', 'query='+queryString, 
-    function(data){
-      console.log(data);
-      $('.results').append(data);
-      // return false;
-    });
+  $.post('/query', 'query='+' %2Btype:component %2Bsubjcode:'+$('#coursebox').val()+' %2Bcourseno:'+$('#numbox').val(),
+      function(data){
+        console.log(data);
+        var lecture = [];
+        var other = [];
+        $('.results').append(data);
+        var jsonNode = $.parseJSON(data);
+        if(jsonNode.responseHeader.status  == 0)
+        {
+          jsonNode = jsonNode.response.docs;
+          for(var i = 0; i < jsonNode.length; i++)
+          {
+            if(jsonNode[i].doctype === 'LE')
+            {
+              lecture.push(jsonNode[i]);
+            }
+            else
+            {
+              other.push(jsonNode[i]);
+            }
+          }
+        }
+        drawSelectChart(lecture,other);
+      });
   return false;
+}
+
+function drawSelectChart(lectureList, otherList)
+{
+  var tablestarter = document.createElement("div");
+  $(tablestarter).addClass('selectionChart');
+  var root = $("#tables")[0];
+  root.appendChild(tablestarter);
+  var table = document.createElement("table");
+  for(var i = 0; i < lectureList.length; i++)
+  {
+    var tr = document.createElement("tr");
+    for(var k in lectureList[i])
+    {
+      var td = document.createElement("td");
+      $(td).addClass("sc"+k);
+      td.innerHTML = lectureList[i][k];
+      tr.appendChild(td);
+    }
+    table.appendChild(tr);
+  }
+  tablestarter.appendChild(table);
 }
 
 function startAutoComplete()
 {
-  setup = {};
   $.get('/query/subjCodes',
     function(data){
       console.log(data);
+      var subj_ac = [];
+      var jsonNode = $.parseJSON(data);
+      jsonNode = jsonNode.facet_counts.facet_fields.subjcode;
+      for(var i = 0; i < jsonNode.length; i++)
+      {
+        if(i%2 == 0)
+        {
+          subj_ac.push(jsonNode[i]);
+          console.log(jsonNode[i]);
+        }
+      }
+      subj_ac.sort();
+      $('#coursebox').autocomplete({
+        source: subj_ac
+      });
     });
 }
 
@@ -142,6 +207,7 @@ function drawTable(root)
         up = true;
       });
     }
+
     function addUpDownListener(elmt)
     {
       elmt.addEventListener('mouseover', function(evt)
@@ -167,6 +233,7 @@ function drawTable(root)
         }
       }, true)
     }
+
     function splitClassString(time)
     {
       var stringArr = time.split(";");

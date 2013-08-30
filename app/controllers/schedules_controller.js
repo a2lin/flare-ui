@@ -127,7 +127,7 @@ action('searchSOLR', function(){
     var http = require('http');
     var options = {
         host: 'ec2-54-213-31-81.us-west-2.compute.amazonaws.com',
-        path: '/solr/collection1/select?q=' +  toSearch.query +'&wt=json',
+        path: '/solr/collection1/select?q=' +  encodeURIComponent(toSearch.query) +'&wt=json&rows=9999',
         port: '8983',
         method: 'GET'
     }
@@ -143,6 +143,8 @@ action('searchSOLR', function(){
             send(str);
         });
     }
+    console.log(encodeURIComponent(toSearch.query));
+    console.log(options.host+':'+options.port+options.path);
     http.request(options, callback).end();
 });
 
