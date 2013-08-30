@@ -1,5 +1,5 @@
  /*! http://mths.be/noselect v1.0.3 by @mathias */
-  jQuery.fn.noSelect = function() {
+ jQuery.fn.noSelect = function() {
 
   // Since the string 'none' is used three times, storing it in a variable gives better results after minification
   var none = 'none';
@@ -14,7 +14,7 @@
     'webkitUserSelect': none,
     'userSelect': none
   });
-  };
+};
 
 // function doQuery(queryString)
 // {
@@ -30,48 +30,60 @@
 function doQuery()
 {
   $.post('/query', 'query='+' %2Btype:component %2Bsubjcode:'+$('#coursebox').val()+' %2Bcourseno:'+$('#numbox').val(),
-      function(data){
-        console.log(data);
-        var lecture = [];
-        var other = [];
-        $('.results').append(data);
-        var jsonNode = $.parseJSON(data);
-        if(jsonNode.responseHeader.status  == 0)
+    function(data){
+      console.log(data);
+      var lecture = [];
+      var other = [];
+
+      $('.results').append(data);
+      var jsonNode = $.parseJSON(data);
+      if(jsonNode.responseHeader.status  == 0)
+      {
+        jsonNode = jsonNode.response.docs;
+        for(var i = 0; i < jsonNode.length; i++)
         {
-          jsonNode = jsonNode.response.docs;
-          for(var i = 0; i < jsonNode.length; i++)
+          if(jsonNode[i].doctype === 'LE')
           {
-            if(jsonNode[i].doctype === 'LE')
-            {
-              lecture.push(jsonNode[i]);
-            }
-            else
-            {
-              other.push(jsonNode[i]);
-            }
+            lecture.push(jsonNode[i]);
+          }
+          else
+          {
+            other.push(jsonNode[i]);
           }
         }
-        drawSelectChart(lecture,other);
-      });
+      }
+      drawSelectChart(lecture,other);
+    });
   return false;
 }
 
 function drawSelectChart(lectureList, otherList)
 {
+  var data_fields = {};
+  var data_arr = ["subjcode", "courseno", "sectid", "doctype", "sectcode", "days", "classhr_start", "classhr_end", "professor"];
+  for(var i = 0; i < data_arr.length; i++)
+  {
+    data_fields[data_arr[i]] = 1;
+  }
   var tablestarter = document.createElement("div");
   $(tablestarter).addClass('selectionChart');
   var root = $("#tables")[0];
   root.appendChild(tablestarter);
   var table = document.createElement("table");
+  $(table).addClass("table");
   for(var i = 0; i < lectureList.length; i++)
   {
     var tr = document.createElement("tr");
     for(var k in lectureList[i])
     {
-      var td = document.createElement("td");
-      $(td).addClass("sc"+k);
-      td.innerHTML = lectureList[i][k];
-      tr.appendChild(td);
+      console.log(k);
+      if(data_fields[k] == 1)
+      {
+        var td = document.createElement("td");
+        $(td).addClass("sc"+k);
+        td.innerHTML = lectureList[i][k];
+        tr.appendChild(td);
+      }
     }
     table.appendChild(tr);
   }
